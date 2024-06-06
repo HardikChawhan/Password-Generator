@@ -1,4 +1,16 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Password Generator App
+This is a [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+That allows users to generate secure passwords based on specified criteria. Users can choose the length and types of characters to include, such as uppercase letters, lowercase letters, numbers, and symbols. The app also features a user-friendly interface with animated checkboxes and the ability to copy generated passwords to the clipboard.
+
+## Libraries Used
+
+- [Yup](https://github.com/jquense/yup): Used for form validation schema to ensure the password length adheres to specified rules. (also printing the error messages is super easy with the help of this library)
+- [Formik](https://github.com/jaredpalmer/formik): Utilized to manage the form state and handle form submission efficiently.
+- [react-native-bouncy-checkbox](https://github.com/WrathChaos/react-native-bouncy-checkbox): Provides an animated checkbox component that enhances the user experience.
+
+## Clipboard API
+
+>**Note**: The app uses the `Clipboard` API (deprecated in React Native) directly instead of [@react-native-community/Clipboard](https://www.npmjs.com/package/@react-native-community/clipboard) library because the `setString()` method in the community version was throwing an error. You can find more details about the issue [here](https://github.com/react-native-clipboard/clipboard/issues/71).
 
 # Getting Started
 
@@ -59,11 +71,6 @@ Now that you have successfully run the app, let's modify it.
 
 You've successfully run and modified your React Native App. :partying_face:
 
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
 # Troubleshooting
 
 If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
@@ -77,3 +84,7 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+## 🔗 Profile Links
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hardikchawhan)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/ChawhanHardik)
