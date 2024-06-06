@@ -1,10 +1,12 @@
-import { ScrollView, StyleSheet, Text, View, Switch, TextInput, TouchableOpacity, SafeAreaView, Image } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Switch, TextInput, TouchableOpacity, SafeAreaView, Image, Clipboard } from 'react-native'
 import React, { useState } from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import BouncyCheckbox from "react-native-bouncy-checkbox"
 import img1 from './assets/images/img1.jpg'
 import img2 from './assets/images/img2.jpg'
+import solidIcon from './assets/images/copySolid.png'
+import regularIcon from './assets/images/copyRegular.png'
 
 const passwordSchema = Yup.object().shape({
   passwordLength: Yup.number()
@@ -17,8 +19,8 @@ export default function App() {
   const [password, setPassword] = useState('')
   const [isGenerated, setIsGenerated] = useState(false)
   const [Enabled, setEnabled] = useState(true);
-  const toggleSwitch = () => setEnabled(!Enabled);
-
+  const toggleSwitch = () => setEnabled(!Enabled)
+  const [ispressed,setPressed] = useState(false)
   const [include, setInclude] = useState({
     lowerCase: false,
     upperCase: false,
@@ -28,7 +30,17 @@ export default function App() {
 
   const backgroundImg = Enabled ? (img1) : (img2);
 
-  const backgroundColor = Enabled?('rgba(0, 0, 0, 0.8)'):('rgba(195, 195, 195, 0.4)');
+  const backgroundColor = Enabled?('rgba(0, 0, 0, 0.8)'):('rgba(195, 195, 195, 0.5)');
+
+  const iconImg = Enabled?(regularIcon):(solidIcon);
+
+  const copyToClipboard = () => {
+    Clipboard.setString(password);
+    setPressed(true);
+    setTimeout(() => {
+      setPressed(false)
+    }, 1500);
+  };
 
   const generatePassword = (passwordLength: number) => {
     let passwordString = '';
@@ -80,7 +92,7 @@ export default function App() {
     <>
       <SafeAreaView style={styles.safeAreaView}>
         <Image source={backgroundImg} style={styles.backgroundImage} />
-        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <ScrollView contentContainerStyle={styles.scrollViewContainer} scrollEnabled={false}>
           <View style={[styles.appContainer,{backgroundColor:backgroundColor},{}]}>
             <View>
               <View style={styles.topSection}>
@@ -224,7 +236,15 @@ export default function App() {
           {isGenerated && (
             <View style={[styles.resultContainer, { backgroundColor: backgroundColor }]}>
               <Text selectable style={[styles.result, { color: '#ffffff' }]}>{password}</Text>
-              
+              <TouchableOpacity onPress={copyToClipboard}>
+                <Image style={styles.iconImg} source={iconImg}></Image>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          {ispressed && (
+            <View style={[styles.copyMsgContainer,{backgroundColor:backgroundColor}]}>
+              <Text style={styles.copyMsg}>copied to clipboard</Text>
             </View>
           )}
         </ScrollView>
@@ -325,6 +345,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     padding: 20,
     borderRadius: 15,
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center',
+    gap:20
   },
   result: {
     textAlign: 'center',
@@ -350,5 +374,18 @@ const styles = StyleSheet.create({
   errorTxt:{
     color:'#ff3333',
     fontSize:13,
-  }
+  },
+  iconImg:{
+    height:30
+  },
+  copyMsgContainer:{
+    margin:15,
+    padding:8,
+    borderRadius:15,
+  },
+  copyMsg:{
+    textAlign:'center',
+    fontSize:20,
+    color:'#ffffff',
+  },
 })
