@@ -13,6 +13,7 @@ const passwordSchema = Yup.object().shape({
     .min(4, "Do you want your password safe?")
     .max(16, "you can't even remember this")
     .required("what do I do with this?")
+    .typeError('please enter a number')
 })
 
 export default function App() {
